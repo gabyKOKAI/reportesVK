@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+{% load menu %}
+
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_javascript %}
+{% bootstrap_css %}
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block tituloPagina %}VK Desarrollo Kokai Web{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'reportesVC/DT_bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'reportesVC/style.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'reportesVC/favicon.ico' %}"/>
+
+</head>
+<body>
+
+    {% block menuu %}
+        {% generate_menu %}
+        {% with menu=menus.main %}
+            {% include "bootstrap-navbar.html" %}
+        {% endwith %}
+    {% endblock %}
+
+    <h1 class="tituloPaginas textoBlanco">{% block HeaderPagina %}{% endblock %}</h1>
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_javascript jquery=1 %}
+    {% bootstrap_messages %}
+
+    <script type="text/javascript">
+   function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+   }
+    </script>
+
+    {% block content %}{% endblock %}
+
+</body>

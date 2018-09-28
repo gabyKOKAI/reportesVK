@@ -1,0 +1,31 @@
+{% extends '../base.html' %}
+{% load bootstrap3 %}
+
+{% block HeaderPagina %}
+    Página del reporte de calculo de {{object.tipoReporte.nombreLargo}}
+{% endblock %}
+
+{% block content %}
+	<div class="textoBlanco">
+	<p>Se ejecuto el reporte con la siguiente informacion:</p>
+	<ul>
+		<li>ID: {{ object.id }}</li>
+		<li>Tipo Reporte: {{ object.tipoReporte.nombre }}</li>
+		<li>Semana: {{ object.semana }}</li>
+		<li>Año Periodo: {{ object.anoPeriodo }}</li>
+		<li>Mes Periodo: {{ object.mesPeriodo.nombre }}</li>
+		<li>Dia Inicia Periodo: {{ object.diaIniciaPeriodo}}</li>
+		<li>Dia Fin Periodo: {{ object.diaFinPeriodo}}</li>
+		<li>Fecha Ejecución: {{ object.fechaEjecucion}}</li>
+		<li>Estatus: {{ object.estatus}}</li>
+		<li>Nombre Archivo: {{ object.nombreArchivo}}</li>
+		<li>Ruta Archivo: {{ object.rutaArchivo}}</li>
+		<li>Nombre Zip: {{ object.nombreZip}}</li>
+	</ul>
+
+	<form action="{{ request.build_absolute_uri }}descargarFile/" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<button class="submitForm" type="submit">{% bootstrap_icon "star" %}Descarga Archivo</button>
+	</form>
+	</div>
+{% endblock %}

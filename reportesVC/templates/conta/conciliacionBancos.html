@@ -1,0 +1,78 @@
+{% extends '../base.html' %}
+{% load bootstrap3 %}
+
+{% block HeaderPagina %}
+    Página de ejecucion de conciliacion [{{tipo_nombre_largo}}]
+{% endblock %}
+
+{% block content %}
+     <div class="row textoBlanco">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-11">
+               <br>
+                <form action="{% url 'reportesVC:conciliaBancos' tipoNombre=tipo_nombre status='ejecutando'%}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6 text-right"></div>
+                        <div class="col-sm-6 text-left">
+                            <button class="submitForm" type="submit" name="boton" value="conciliar">{% bootstrap_icon "star" %} Conciliar</button>
+                        </div>
+                    </div>
+
+
+                <form action="{{ request.build_absolute_uri }}subirArchivo/" method="post" enctype="multipart/form-data" class="form">
+                    {% csrf_token %}
+
+                     <div class="row">
+                        <div class="col-sm-3 text-left">
+                            <p>Selecciona Agencia:</p>
+                            <ul class="listaArchivos">
+                                <!--li><input type="radio" name="CBAgencia" value="Contravel" checked="checked" title="Text to show">Contravel
+                                </li-->
+                                <li><input type="radio" name="CBAgencia" value="VK" checked="checked">Viajes Kokai
+                                </li>
+                                <li><input type="radio" name="CBAgencia" value="Otra">Otra
+                                </li>
+                            </ul>
+                        </div>
+                         <div class="col-sm-9 text-left">
+                             <p>Selecciona fecha:</p>
+                             <input id="currentDate" class="calendario" type="date" name="DATEreportes" />
+                        </div>
+                    </div>
+                    <p>Subir o sustituir los archivos de configuración:</p>
+                    <div class="row">
+                        <div class="col-sm-12 text-left">
+                        <ul class="listaArchivos">
+                            <li><input type="radio" name="CBtipoArchivo" value="archivoSaldos" title="Text to show">Archivo Saldos.
+                                <span class="masDetalle" onclick="toggle_visibility('detallesConfCliAL');">+/-</span>
+                                <div class="detalles" id="detallesConfCliAL">Las columnas deben llevar este orden: [CUENTA | SALDO ICAAV | SALDO BANCOS] en formato CSV sin comas y sin titulos.</div>
+                            </li>
+                            <li><input type="radio" name="CBtipoArchivo" value="archivoBancos">Archivo Bancos.
+                                <span class="masDetalle" onclick="toggle_visibility('detallesMex');">+/-</span>
+                                <div class="detalles" id="detallesMex">Las columnas deben llevar este orden: [FECHA | DESCRIPCION | CARGO | ABONO | CUENTA] en formato CSV sin comas y sin titulos.</div>
+                            </li>
+                            <li><input type="radio" name="CBtipoArchivo" value="archivoAuxiliar" checked="checked">Archivo de ICAAV.
+                                <span class="masDetalle" onclick="toggle_visibility('detallesArchivo');">+/-</span>
+                                <div class="detalles" id="detallesArchivo">Archivo auxiliar de ICAAV en formato CSV sin comas y sin titulos. (Agregar en este historicos)</div>
+                            </li>
+
+                        </ul>
+                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-right">
+                            <input type="file" name="myfile">
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <button class="submitForm" type="submit" name="boton" value="subeArchivo">{% bootstrap_icon "star" %}Sube Archivo</button>
+                            <button class="submitForm" type="submit" name="boton" value="bajaArchivo">{% bootstrap_icon "star" %}Baja Archivo</button>
+                        </div>
+                    </div>
+                </form>
+                </form>
+
+
+      </div>
+    </div>
+{% endblock %}
