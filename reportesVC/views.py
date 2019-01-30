@@ -1,10 +1,12 @@
+import datetime
 from os import path, mkdir
 
 from ClasesGenericas import ManageFiles
-from ReportesPDFContravel import ReportesPDFContravel
 from ComisionesContravel import ComisionesContravel
 from Conciliador import Conciliador
 from ConciliadorSAT import ConciliadorSAT
+from ReportesPDFContravel import ReportesPDFContravel
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse  ## eventualmente lo podremos quitar
 from django.http import HttpResponseRedirect
@@ -12,9 +14,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
-from django.contrib import messages
-from django.contrib import auth
-import datetime
 
 from .models import TipoReporte, EjecucionReporte, VariablesUltimoReporte, MesReporte, ActualizacionesArchivos
 
@@ -27,7 +26,7 @@ dirArchivos = "/home/kokaiweb/vep35/reportesVK/archivos/"
 
 
 ###desarrollo
-##dirArchivos = "reportesContravel/reportesVC/archivos/"
+##dirArchivos = "reportesVK/reportesVC/archivos/"
 
 
 # Create your views here.
